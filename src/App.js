@@ -6,6 +6,7 @@ const App = () => {
 	]);
 	const [newName, setNewName] = useState('');
 	const [newNumber, setNewNumber] = useState('');
+	const [filter, setFilter] = useState('');
 
 	const handleAddPerson = (e) => {
 		e.preventDefault();
@@ -28,6 +29,17 @@ const App = () => {
 	return (
 		<div>
 			<h2>Phonebook</h2>
+			<div>
+				<p>
+					filter shown with
+					<input
+						type="text"
+						name="filter"
+						onChange={(e) => setFilter(e.target.value)}
+						value={filter}
+					/>
+				</p>
+			</div>
 			<form onSubmit={handleAddPerson}>
 				<div>
 					name:{' '}
@@ -54,11 +66,19 @@ const App = () => {
 			<h2>Numbers</h2>
 			<div>
 				<ul style={{ listStyle: 'none' }}>
-					{persons.map((p, i) => (
-						<li key={i}>
-							{p.name} {p.number}
-						</li>
-					))}
+					{filter
+						? persons
+								.filter((person) => person.name.includes(filter))
+								.map((p, i) => (
+									<li key={i}>
+										{p.name} {p.number}
+									</li>
+								))
+						: persons.map((p, i) => (
+								<li key={i}>
+									{p.name} {p.number}
+								</li>
+						  ))}
 				</ul>
 			</div>
 		</div>
