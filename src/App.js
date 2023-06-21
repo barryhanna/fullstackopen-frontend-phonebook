@@ -6,8 +6,16 @@ const App = () => {
 
 	const handleAddPerson = (e) => {
 		e.preventDefault();
+		const alreadyUsed = persons.find((p) => p.name === newName);
+		if (alreadyUsed) {
+			return alert(
+				`The name ${newName} has already been added to the phonebook`
+			);
+		}
+
 		const newPersons = [...persons, { name: newName }];
 		setPersons(newPersons);
+		setNewName('');
 	};
 
 	return (
