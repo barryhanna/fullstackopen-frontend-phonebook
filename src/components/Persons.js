@@ -1,4 +1,4 @@
-const Persons = ({ persons, filter }) => (
+const Persons = ({ persons, filter, handleDelete }) => (
 	<div>
 		<ul style={{ listStyle: 'none' }}>
 			{filter
@@ -8,12 +8,18 @@ const Persons = ({ persons, filter }) => (
 						)
 						.map((p) => (
 							<li key={p.id}>
-								{p.name} {p.number}
+								{p.name} {p.number}{' '}
+								<button onClick={() => handleDelete(p.id)}>
+									delete
+								</button>
 							</li>
 						))
 				: persons.map((p) => (
 						<li key={p.id}>
-							{p.name} {p.number}
+							{p.name} {p.number}{' '}
+							<button onClick={() => handleDelete(p.id)}>
+								delete
+							</button>
 						</li>
 				  ))}
 		</ul>

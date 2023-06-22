@@ -23,6 +23,10 @@ const update = (id, person) => {
 		.catch((err) => console.error(err));
 };
 
-const services = { getAll, create, update };
+const deletePerson = (id) => {
+	return axios.delete(`${baseUrl}/${id}`);
+};
+
+const services = { getAll, create, update, delete: deletePerson };
 
 export default services;

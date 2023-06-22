@@ -14,6 +14,16 @@ const App = () => {
 		personService.getAll().then((res) => setPersons(res));
 	}, []);
 
+	const handleDelete = (id) => {
+		const { name } = persons.find((person) => person.id === id);
+
+		if (window.confirm(`Delete ${name}?`)) {
+			personService.delete(id);
+			const updatedPersons = persons.filter((p) => p.id !== id);
+			setPersons(updatedPersons);
+		}
+	};
+
 	const handleAddPerson = (e) => {
 		e.preventDefault();
 		const alreadyUsed = persons.find((p) => p.name === newName);
@@ -48,7 +58,11 @@ const App = () => {
 				handleAddPerson={handleAddPerson}
 			/>
 			<h2>Numbers</h2>
-			<Persons persons={persons} filter={filter} />
+			<Persons
+				persons={persons}
+				filter={filter}
+				handleDelete={handleDelete}
+			/>
 		</div>
 	);
 };
