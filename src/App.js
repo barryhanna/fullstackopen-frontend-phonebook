@@ -95,6 +95,9 @@ const App = () => {
 			personService
 				.create({ name: newName, number: newNumber })
 				.then((data) => {
+					if (!data) {
+						throw Error('No data returned');
+					}
 					const newPersons = [
 						...persons,
 						{ id: data.id, name: data.name, number: data.number },
@@ -103,8 +106,11 @@ const App = () => {
 					resetInputs();
 					showMessage(
 						MessageTypes.success,
-						`${data.name} has been added to your phonebook`
+						`${newName} has been added to your phonebook`
 					);
+				})
+				.catch((error) => {
+					showMessage(MessageTypes.error, `Validation error`);
 				});
 		}
 	};
